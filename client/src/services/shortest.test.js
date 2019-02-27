@@ -4,8 +4,13 @@ import shortest from './shortest';
 
 
 test('finds the length of shortest route when provided start and end', () => {
+  const ac = shortest.dist('a', 'c', DB);
+  const ad = shortest.dist('a', 'd', DB);
+  const bb = shortest.dist('b', 'b', DB);
+  const de = shortest.dist('d', 'e', DB);
 
-  expect(shortest.dist('a', 'c', DB)).toEqual(9);
-  expect(shortest.dist('b', 'b', DB)).toEqual(9);
-  expect(shortest.dist('d', 'e', DB)).toEqual(6);
+  expect(ac.distance).toEqual(9);
+  expect(ad.distance).toEqual(5);
+  expect(bb.distance).toEqual(9);
+  expect(de.distance).toEqual(6);
 })

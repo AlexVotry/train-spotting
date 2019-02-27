@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import numOfRoutes from '../../services/numOfRoutes';
+// import TrainRoutes from '../TrainRoutes';
 
 class Different extends Component {
-  state = { start: '', end: '', maxDist: '', showAnswer: false };
+  state = { start: '', end: '', maxDist: '', numberOfRoutes: '', validRoutes: [], showAnswer: false };
 
   handleChange = event => {
     console.log(event.target.value);
@@ -11,9 +12,10 @@ class Different extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const result = numOfRoutes(this.state.start, this.state.end, this.state.maxDist, this.props.db);
     this.setState(
-      { numberOfRoutes: numOfRoutes(this.state.start,
-        this.state.end, this.state.maxDist, this.props.db),
+      { numberOfRoutes: result.count,
+        validRoutes: result.validRoutes,
         showAnswer: true,
         start: '',
         end: '',
@@ -24,18 +26,18 @@ class Different extends Component {
   provideAnswer = () => {
     if (this.state.showAnswer) {
       return (
-        <h3>{this.state.numberOfRoutes}</h3>
+        <h3>Total Routes you can do: {this.state.numberOfRoutes}</h3>
       );
     };
   }
 
   renderContent() {
-    return this.props.db.map(route => {
+    return this.state.validRoutes.map(({route, distance}) => {
       return (
-        <div className="card blue-grey darken-1" key={route._id}>
+        <div className="card blue-grey darken-1" key={route}>
         <div className="card-content white-text">
-          <span className="card-title">{route.start} - {route.end}</span>
-          <p>{route.distance}</p>
+          <span className="card-title">Route: {route}</span>
+          <p>Distance: {distance}</p>
         </div>
       </div>
       );
@@ -68,11 +70,16 @@ class Different extends Component {
 
             <input className="red-text" type="submit" value="Submit" />
           </form>
+          <div className="col s6">
+          {this.provideAnswer()}
+          </div>
+
+          <ul className="col s5">
+          <li>{this.renderContent()}</li>
+          </ul>
         </div>
 
-        <div className="col s6">
-          {this.provideAnswer()}
-        </div>
+
       </div>
     )
   }

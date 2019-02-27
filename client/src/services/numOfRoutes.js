@@ -11,34 +11,37 @@ export default (s, e, maxDist, routes) => {
     starts = startEnd.start;
     ends = startEnd.end;
     count = startEnd.count;
-    count = _getNextMaxTripDist(starts, ends, maxDist, count, routes);
+    let result = _getNextMaxTripDist(starts, end, maxDist, count, routes);
 
-    return count;
+    return result;
   }
 
-  function _getNextMaxTripDist(starts, ends, maxDist, count, routes) {
-      let nextStart = {};
-      let tax = 1;
-      while (!_.isEmpty(starts)) {
-        _.mapKeys(starts, (value, key) => {
-          if (key === 'c') count++;
-        });
+  function _getNextMaxTripDist(starts, end, maxDist, count, routes) {
+    let newKey;
+    let validRoutes = [];
 
-        // get next group of routes and add distance.
-        nextStart = {};
+    while (!_.isEmpty(starts)) {
+      let nextStart = {};
+      _.mapKeys(starts, (value, key) => {
+        if (key.substr(-1) === end) {
+          count++;
+          validRoutes.push({ route: key, distance: value });
+        }
+
         _.forEach(routes, route => {
-          if (starts[route.start]) {
-            let routeDist = starts[route.start] + route.distance;
+          if  (key.substr(-1) === route.start) {
+            newKey = `${key}${route.end}`;
+            let routeDist = starts[key] + route.distance;
             if (routeDist < maxDist) {
-              nextStart[route.end] = routeDist;
+              nextStart[newKey] = routeDist;
             }
           }
-
         });
+      });
 
-        starts = {};
-        _.assign(starts, nextStart);
-      }
+      starts = {};
+      _.assign(starts, nextStart);
+    }
 
-      return count;
+    return { count: count, validRoutes: validRoutes };
     }

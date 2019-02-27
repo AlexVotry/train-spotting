@@ -3,7 +3,7 @@ import shortest from '../../services/shortest';
 
 
 class Shortest extends Component {
-  state = { start: '', end: '', distance: 0, showAnswer: false };
+  state = { start: '', end: '', distance: 0, route: '', showAnswer: false };
 
   handleChange = event => {
     console.log(event.target.value);
@@ -12,9 +12,11 @@ class Shortest extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const result = shortest.dist(this.state.start,
+      this.state.end, this.props.db);
     this.setState(
-      { distance: shortest.dist(this.state.start,
-        this.state.end, this.props.db),
+      { distance: result.distance,
+        route: result.route,
         showAnswer: true,
         start: '',
         end: '',
@@ -27,6 +29,17 @@ class Shortest extends Component {
         <h3>{this.state.distance}</h3>
       );
     };
+  }
+
+  renderContent() {
+    return (
+      <div className="card blue-grey darken-1" key={this.state.route}>
+      <div className="card-content white-text">
+        <span className="card-title">Route: {this.state.route}</span>
+        <p>Distance: {this.state.distance}</p>
+      </div>
+    </div>
+    );
   }
 
   render() {
@@ -53,7 +66,7 @@ class Shortest extends Component {
         </div>
 
         <div className="col s6">
-          {this.provideAnswer()}
+          {this.renderContent()}
         </div>
       </div>
     )
