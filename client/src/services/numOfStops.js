@@ -1,80 +1,65 @@
 import _ from 'lodash';
+import shortest from './shortest';
 
-  function max(start, end, stops, routes) {
-    let count = 0;
-    for (let i = 2; i <= stops; i++) {
-      count += exact(start, end, i, routes);
+function max(start, end, stops, routes) {
+  let count = 0;
+  let validRoutes = [];
+  for (let i = 1; i <= stops; i++) {
+    let exactResults = exact(start, end, i, routes);
+    count += exactResults.count;
+    if(!_.isEmpty(exactResults.routes)) {
+      for (let i = 0; i < exactResults.routes.length; i++) {
+        validRoutes.push(exactResults.routes[i]);
+      }
     }
-    return count;
   }
 
-  function exact(s, e, stops, routes) {
-    let nextTrip = {};
-    let ends = [];
-    let start = s.toLowerCase();
-    let end = e.toLowerCase();
-    let starts = [];
-    let counter = 2;
-    let count = 0;
+  let result = { count: count, routes: validRoutes };
+  return result;
+}
 
-    let startEnd = _findStartEnd(start, end, routes);
-    starts = startEnd.start;
-    ends = startEnd.end;
+function exact(s, e, stops, routes) {
+  let validRoutes = [];
+  let start = s.toLowerCase();
+  let end = e.toLowerCase();
+  let counter = 1;
+  let count = 0;
+  // TODO: move lines to 34 into _getNextTrip()
+  let nextTrip = shortest.getStart_End(start, end, routes);
+  let starts = nextTrip.start;
+  nextTrip = starts;
+  if (!_.isEmpty(nextTrip.route)) {
+    validRoutes.push(nextTrip.route);
+  }
 
-    while (counter < stops) {
-      counter += 2;
-      nextTrip = _getNextTrip(starts, ends, stops, counter, routes);
-      starts = nextTrip.starts;
-      ends = nextTrip.ends;
+  while (counter < stops) {
+    nextTrip = _getNextTrip(starts, end, routes);
+    starts = nextTrip;
+    counter ++;
+  }
+  let keys = _.keysIn(nextTrip);
+  _.forEach(keys, route => {
+    if (route.substr(-1) === end){
+      count++;
+      validRoutes.push({ route: route, distance: nextTrip[route] });
     }
+  });
 
-  _.forEach(starts, start => {
-      if (ends.includes(start)) count++;
-    });
+  return { count: count, routes: validRoutes };
+}
 
-    return count;
-  }
-
-function _findStartEnd(start, end, routes) {
-    let starts = [];
-    let ends = [];
-
+function _getNextTrip(starts, ends, routes) {
+  let newKey;
+  let nextStart = {};
+  _.mapKeys(starts, (value, key) => {
     _.forEach(routes, route => {
-      if (route.start === start) {
-        starts.push(route.end);
-      }
-      if (route.end === end) {
-        ends.push(route.start);
+      if  (key.substr(-1) === route.start) {
+        newKey = `${key}${route.end}`;
+        nextStart[newKey] = starts[key] + route.distance;
       }
     });
-
-    return {start: starts, end: ends};
-  }
-
-
-  function _getNextTrip(starts, ends, stops, counter, routes) {
-    let nextStart = [];
-    let nextEnd = [];
-    let begin = _.uniq(starts);
-    let finish = _.uniq(ends);
-    let len = begin.length >= finish.length ? begin.length : finish.length;
-
-    _.forEach(routes, route => {
-      for (let i = 0; i < len; i++) {
-        if (route.start === begin[i]) {
-          nextStart.push(route.end);
-        };
-        if (counter <= stops) {
-          if (route.end === finish[i]) {
-            nextEnd.push(route.start);
-          }
-        } else {
-          nextEnd = ends;
-        }
-      }
-    });
-
-    return { starts: nextStart, ends: nextEnd };
-  }
+  })
+  return nextStart;
+}
 
 export default { max, exact };
