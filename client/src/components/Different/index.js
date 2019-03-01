@@ -3,6 +3,7 @@ import numOfRoutes from '../../services/numOfRoutes';
 import fields from '../Form/fields';
 import Form from '../Form';
 import RouteBox from '../RouteBox';
+import Answer from '../Answer';
 
 class Different extends Component {
   state = { start: '', end: '', maxDist: '', numberOfRoutes: '', validRoutes: [], showAnswer: false };
@@ -23,14 +24,6 @@ class Different extends Component {
       });
   }
 
-  provideAnswer = () => {
-    if (this.state.showAnswer) {
-      return (
-        <h3>Total Routes you can do: {this.state.numberOfRoutes}</h3>
-      );
-    };
-  }
-
   render() {
     const formFields = fields.max([this.state.start, this.state.end, this.state.maxDist]);
 
@@ -40,16 +33,14 @@ class Different extends Component {
           <h1>Find how many different routes are available within a given distance.</h1>
           <p> Enter the start point, finish point, and the maximum distance to get how many possible routes are available.</p>
         </div>
+
         <div className="row">
           <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
 
-          <div className="col s6">
-          {this.provideAnswer()}
-          </div>
+          <Answer showAnswer={this.state.showAnswer} answer={this.state.numberOfRoutes}/>
 
           <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
         </div>
-
       </div>
     )
   }
