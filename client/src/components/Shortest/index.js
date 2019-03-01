@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import shortest from '../../services/shortest';
+import fields from '../Form/fields';
+import Form from '../Form';
 
 
 class Shortest extends Component {
   state = { start: '', end: '', distance: 0, route: '', showAnswer: false };
 
-  handleChange = event => {
-    console.log(event.target.value);
-    this.setState({ [event.target.name]: event.target.value, showAnswer: false });
+  handleChange = input => {
+    this.setState({ [input.name]: input.value, showAnswer: false });
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = () => {
     const result = shortest.dist(this.state.start,
       this.state.end, this.props.db);
     this.setState(
@@ -43,6 +43,8 @@ class Shortest extends Component {
   }
 
   render() {
+    const formFields = fields.stops([this.state.start, this.state.end])
+
     return (
       <div>
         <div style={{ textAlign: 'center' }}>
@@ -50,19 +52,7 @@ class Shortest extends Component {
           <p> Enter the start point, and the finish point, to what the shortest distance is.</p>
         </div>
         <div className="row">
-          <form className="col s6" onSubmit={this.handleSubmit}>
-            <label>
-              Start:
-              <input type="text" name="start" value={this.state.start} onChange={this.handleChange} />
-            </label>
-
-            <label>
-              End:
-              <input type="text" name="end" value={this.state.end} onChange={this.handleChange} />
-            </label>
-
-              <input className="red-text" type="submit" value="Submit" />
-          </form>
+          <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} />
         </div>
 
         <div className="col s6">
