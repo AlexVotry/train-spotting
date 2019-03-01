@@ -13,14 +13,20 @@ class Different extends Component {
   }
 
   handleSubmit = () => {
-    const result = numOfRoutes(this.state.start, this.state.end, this.state.maxDist, this.props.db);
+    const start = this.state.start.toUpperCase();
+    const end = this.state.end.toUpperCase();
+    const maxDist = this.state.maxDist;
+    const result = numOfRoutes(start, end, maxDist, this.props.db);
+    const answer = `The total amount of routes possible from "${start}" to "${end}" less than ${maxDist} miles is: ${result.count}.`
+
     this.setState(
-      { numberOfRoutes: result.count,
+      { numberOfRoutes:answer,
         validRoutes: result.validRoutes,
         showAnswer: true,
         start: '',
         end: '',
-        stops: ''
+        stops: '',
+        maxDist: ''
       });
   }
 

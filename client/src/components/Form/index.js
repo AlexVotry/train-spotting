@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Radio from './Radio';
 import _ from 'lodash';
+import './style.css';
 
 class Form extends Component {
   state = {
@@ -48,10 +49,10 @@ class Form extends Component {
 
   render (){
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} className="col s3 form">
         {this.renderInputs()}
         {this.renderRadio()}
-        <input className="red-text" type="submit" value="Submit" />
+        <input className="waves-effect waves-light btn" type="submit" value="Submit" />
       </form>
     )
   }

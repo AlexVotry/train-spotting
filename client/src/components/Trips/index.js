@@ -16,9 +16,11 @@ class Trips extends Component {
   handleSubmit = () => {
     const result = numOfStops[this.state.amt](this.state.start,
       this.state.end, this.state.stops, this.props.db);
+    const answer = `There are ${result.count} trips available with ${this.state.stops} stops that start at "${this.state.start.toUpperCase()}" and end at "${this.state.end.toUpperCase()}".`;
 
     this.setState(
-      { numOfStops: result.count,
+
+      { numOfStops: answer,
         routes: result.routes,
         showAnswer: true,
         start: '',

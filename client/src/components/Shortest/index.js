@@ -6,18 +6,21 @@ import RouteBox from '../RouteBox';
 import Answer from '../Answer';
 
 class Shortest extends Component {
-  state = { start: '', end: '', distance: 0, route: '', showAnswer: false };
+  state = { start: '', end: '', distance: 0, route: '', answer: '', showAnswer: false };
 
   handleChange = input => {
     this.setState({ [input.name]: input.value, showAnswer: false });
   }
 
   handleSubmit = () => {
-    const result = shortest.dist(this.state.start,
-      this.state.end, this.props.db);
+    const start = this.state.start.toUpperCase();
+    const end = this.state.end.toUpperCase();
+    const result = shortest.dist(start, end, this.props.db);
+    const answer = `The shortest distance from "${start}" to "${end}" is ${result.distance} miles`;
 
     this.setState(
-      { distance: result.distance,
+      { answer: answer,
+        distance: result.distance,
         route: result.route,
         showAnswer: true,
         start: '',
@@ -39,7 +42,7 @@ class Shortest extends Component {
         <div className="row">
           <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} />
 
-          <Answer showAnswer={this.state.showAnswer} answer={this.state.distance}/>
+          <Answer showAnswer={this.state.showAnswer} answer={this.state.answer}/>
 
           <RouteBox validRoutes={validRoute} showAnswer={this.state.showAnswer}/>
         </div>

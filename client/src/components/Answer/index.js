@@ -4,8 +4,8 @@ const Answer = (props) => {
   console.log('props', props);
   if (props.showAnswer) {
     return (
-      <div className="col s6">
-        <h3>{props.answer}</h3>
+      <div className="col s8 right">
+        <h4>{props.answer}</h4>
       </div>
     );
   };
