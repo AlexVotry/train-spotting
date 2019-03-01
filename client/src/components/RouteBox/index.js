@@ -3,15 +3,14 @@ import React, { Component } from 'react';
 class RouteBox extends Component {
 
   renderContent() {
-    // console.log('valid: ', this.props.validRoutes);
     if (this.props.showAnswer) {
       return this.props.validRoutes.map(({route, distance}) => {
         return (
           <div className="col s4" key={route}>
             <div className="card blue-grey darken-1" >
               <div className="card-content white-text">
-                <span className="card-title">{route}</span>
-                <p>{distance}</p>
+                <span className="card-title">Route: {route.toUpperCase()}</span>
+                <p>Distance: {distance} miles</p>
               </div>
             </div>
           </div>
@@ -22,7 +21,7 @@ class RouteBox extends Component {
 
   render() {
     return (
-      <div>
+      <div className="col s8 right">
         {this.renderContent()}
       </div>
     )

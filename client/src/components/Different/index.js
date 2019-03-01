@@ -3,6 +3,7 @@ import numOfRoutes from '../../services/numOfRoutes';
 import fields from '../Form/fields';
 import Form from '../Form';
 import RouteBox from '../RouteBox';
+import Answer from '../Answer';
 
 class Different extends Component {
   state = { start: '', end: '', maxDist: '', numberOfRoutes: '', validRoutes: [], showAnswer: false };
@@ -12,23 +13,21 @@ class Different extends Component {
   }
 
   handleSubmit = () => {
-    const result = numOfRoutes(this.state.start, this.state.end, this.state.maxDist, this.props.db);
+    const start = this.state.start.toUpperCase();
+    const end = this.state.end.toUpperCase();
+    const maxDist = this.state.maxDist;
+    const result = numOfRoutes(start, end, maxDist, this.props.db);
+    const answer = `The total amount of routes possible from "${start}" to "${end}" less than ${maxDist} miles is: ${result.count}.`
+
     this.setState(
-      { numberOfRoutes: result.count,
+      { numberOfRoutes:answer,
         validRoutes: result.validRoutes,
         showAnswer: true,
         start: '',
         end: '',
-        stops: ''
+        stops: '',
+        maxDist: ''
       });
-  }
-
-  provideAnswer = () => {
-    if (this.state.showAnswer) {
-      return (
-        <h3>Total Routes you can do: {this.state.numberOfRoutes}</h3>
-      );
-    };
   }
 
   render() {
@@ -40,16 +39,14 @@ class Different extends Component {
           <h1>Find how many different routes are available within a given distance.</h1>
           <p> Enter the start point, finish point, and the maximum distance to get how many possible routes are available.</p>
         </div>
+
         <div className="row">
           <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
 
-          <div className="col s6">
-          {this.provideAnswer()}
-          </div>
+          <Answer showAnswer={this.state.showAnswer} answer={this.state.numberOfRoutes}/>
 
           <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
         </div>
-
       </div>
     )
   }
