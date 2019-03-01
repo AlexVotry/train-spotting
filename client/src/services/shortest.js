@@ -32,7 +32,7 @@ function dist(s, e, routes) {
     let key;
 
     _.forEach(routes, route => {
-      if (route.start == start && route.end === end) {
+      if (route.start === start && route.end === end) {
         validRoute = { route: `${route.start}${route.end}`, distance: route.distance };
         count++;
       }

@@ -2,14 +2,11 @@ import _ from 'lodash';
 import shortest from './shortest';
 
 export default (s, e, maxDist, routes) => {
-    let starts = {};
-    let ends = {};
     let count = 0;
     let start = s.toLowerCase();
     let end = e.toLowerCase();
     let startEnd = shortest.getStart_End(start, end, routes, count);
-    starts = startEnd.start;
-    ends = startEnd.end;
+    let starts = startEnd.start;
     count = startEnd.count;
     let result = _getNextMaxTripDist(starts, end, maxDist, count, routes);
 

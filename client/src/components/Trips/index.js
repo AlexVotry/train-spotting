@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import numOfStops from '../../services/numOfStops';
+import fields from '../Form/fields';
+import Form from '../Form';
 
 
 class Trips extends Component {
-  state = { start: '', end: '', stops: '', numOfStops: 0, amt: 'max', showAnswer: false };
+  state = { start: '', end: '', stops: '', numOfStops: 0, amt: 'max', routes: [], showAnswer: false };
 
-  handleChange = event => {
-    console.log(event.target.value);
-    this.setState({ [event.target.name]: event.target.value, showAnswer: false });
+  handleChange = input => {
+    this.setState({[ input.name]: input.value, showAnswer: false });
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = () => {
+    const result = numOfStops[this.state.amt](this.state.start,
+      this.state.end, this.state.stops, this.props.db);
     this.setState(
-      { numOfStops: numOfStops[this.state.amt](this.state.start,
-        this.state.end, this.state.stops, this.props.db),
+      { numOfStops: result.count,
+        routes: result.routes,
         showAnswer: true,
         start: '',
         end: '',
@@ -31,12 +33,12 @@ class Trips extends Component {
   }
 
   renderContent() {
-    return this.props.db.map(route => {
+    return this.state.routes.map(({route, distance}) => {
       return (
-        <div className="card blue-grey darken-1" key={route._id}>
+        <div className="card blue-grey darken-1" key={route}>
         <div className="card-content white-text">
-          <span className="card-title">{route.start} - {route.end}</span>
-          <p>{route.distance}</p>
+          <span className="card-title">Route: {route}</span>
+          <p>Distance: {distance}</p>
         </div>
       </div>
       );
@@ -44,6 +46,9 @@ class Trips extends Component {
   }
 
   render() {
+    const formFields = fields.stops([this.state.start, this.state.end, this.state.stops]);
+    const radioInfo = [{ name: 'max', label: 'Maximum amt' }, { name: 'exact', label: 'Exact amount' }]
+
     return (
       <div>
         <div style={{ textAlign: 'center' }}>
@@ -51,39 +56,15 @@ class Trips extends Component {
           <p> Enter the start point, finish point, and the number of stops to get how many possible routes there are.</p>
         </div>
         <div className="row">
-          <form className="col s6" onSubmit={this.handleSubmit}>
-            <label>
-              Start:
-              <input type="text" name="start" value={this.state.start} onChange={this.handleChange} />
-            </label>
-
-            <label>
-              End:
-              <input type="text" name="end" value={this.state.end} onChange={this.handleChange} />
-            </label>
-
-            <label>
-              Stops:
-              <input type="text" name="stops" value={this.state.stops} onChange={this.handleChange} />
-            </label>
-              <p>
-              <label>
-                <input name="amt" value="max" type="radio" onChange={this.handleChange} />
-                <span>Maximum amt of stops</span>
-              </label>
-              </p>
-              <p>
-                <label>
-                  <input name="amt" value="exact" type="radio" onChange={this.handleChange} />
-                  <span>Exact amount of stops</span>
-                </label>
-              </p>
-            <input className="red-text" type="submit" value="Submit" />
-          </form>
+          <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} radio={radioInfo}/>
         </div>
 
         <div className="col s6">
           {this.provideAnswer()}
+        </div>
+
+        <div>
+          {this.renderContent()}
         </div>
       </div>
     )

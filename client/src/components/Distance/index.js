@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import getDistance from '../../services/getDistance';
+import Form from '../Form';
 
 class Distance extends Component {
   state = { value: '', totalDistance: 0, showAnswer: false };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value, showAnswer: false });
+  handleChange = input => {
+    this.setState({ value: input.value, showAnswer: false });
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = () => {
     this.setState({ totalDistance: getDistance(this.state.value, this.props.db), showAnswer: true, value: '' });
-
   }
 
   provideAnswer = () => {
@@ -22,21 +21,14 @@ class Distance extends Component {
     };
   }
 
-
-
   render() {
+    const formField = [{ label: 'Route', name: 'route', value: this.state.value }];
     return (
       <div style={{ textAlign: 'center' }}>
         <h1>Route Distance Info</h1>
         <h3>type in the route stops to find the total distance of the route: </h3>
         <div className="row">
-          <form className="col s6" onSubmit={this.handleSubmit}>
-            <label>
-              Route:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
-            </label>
-            <input className="red-text" type="submit" value="Submit" />
-          </form>
+          <Form fields={formField} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
 
           <div className="col s6">
             {this.provideAnswer()}
@@ -47,8 +39,5 @@ class Distance extends Component {
     )
   }
 }
-// <ul className="col s5">
-// {this.renderContent()}
-// </ul>
 
 export default Distance;
