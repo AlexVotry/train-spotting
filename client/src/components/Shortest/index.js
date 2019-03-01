@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import shortest from '../../services/shortest';
 import fields from '../Form/fields';
 import Form from '../Form';
+import RouteBox from '../RouteBox';
 
 
 class Shortest extends Component {
@@ -31,19 +32,10 @@ class Shortest extends Component {
     };
   }
 
-  renderContent() {
-    return (
-      <div className="card blue-grey darken-1" key={this.state.route}>
-      <div className="card-content white-text">
-        <span className="card-title">Route: {this.state.route}</span>
-        <p>Distance: {this.state.distance}</p>
-      </div>
-    </div>
-    );
-  }
-
   render() {
     const formFields = fields.stops([this.state.start, this.state.end])
+
+    const validRoute = [{route: this.state.route, distance: this.state.distance }]
 
     return (
       <div>
@@ -54,10 +46,7 @@ class Shortest extends Component {
         <div className="row">
           <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} />
         </div>
-
-        <div className="col s6">
-          {this.renderContent()}
-        </div>
+        <RouteBox validRoutes={validRoute} showAnswer={this.state.showAnswer}/>
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import numOfStops from '../../services/numOfStops';
 import fields from '../Form/fields';
 import Form from '../Form';
+import RouteBox from '../RouteBox';
 
 
 class Trips extends Component {
@@ -32,19 +33,6 @@ class Trips extends Component {
     };
   }
 
-  renderContent() {
-    return this.state.routes.map(({route, distance}) => {
-      return (
-        <div className="card blue-grey darken-1" key={route}>
-        <div className="card-content white-text">
-          <span className="card-title">Route: {route}</span>
-          <p>Distance: {distance}</p>
-        </div>
-      </div>
-      );
-    });
-  }
-
   render() {
     const formFields = fields.stops([this.state.start, this.state.end, this.state.stops]);
     const radioInfo = [{ name: 'max', label: 'Maximum amt' }, { name: 'exact', label: 'Exact amount' }]
@@ -64,7 +52,7 @@ class Trips extends Component {
         </div>
 
         <div>
-          {this.renderContent()}
+          <RouteBox validRoutes={this.state.routes} showAnswer={this.state.showAnswer}/>
         </div>
       </div>
     )

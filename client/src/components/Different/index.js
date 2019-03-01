@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import numOfRoutes from '../../services/numOfRoutes';
 import fields from '../Form/fields';
 import Form from '../Form';
+import RouteBox from '../RouteBox';
 
 class Different extends Component {
   state = { start: '', end: '', maxDist: '', numberOfRoutes: '', validRoutes: [], showAnswer: false };
@@ -30,19 +31,6 @@ class Different extends Component {
     };
   }
 
-  renderContent() {
-    return this.state.validRoutes.map(({route, distance}) => {
-      return (
-        <div className="card blue-grey darken-1" key={route}>
-        <div className="card-content white-text">
-          <span className="card-title">Route: {route}</span>
-          <p>Distance: {distance}</p>
-        </div>
-      </div>
-      );
-    });
-  }
-
   render() {
     const formFields = fields.max([this.state.start, this.state.end, this.state.maxDist]);
 
@@ -59,11 +47,8 @@ class Different extends Component {
           {this.provideAnswer()}
           </div>
 
-          <ul className="col s5">
-          <li>{this.renderContent()}</li>
-          </ul>
+          <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
         </div>
-
 
       </div>
     )
