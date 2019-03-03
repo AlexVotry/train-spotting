@@ -1,6 +1,10 @@
 .card {
-  /*width: 12rem;*/
   display: inline-block;
   background-color: #4db6ac;
   margin: 10px;
+}
+
+.routeBoxes {
+    height: 30rem;
+    overflow-y: scroll;
 }

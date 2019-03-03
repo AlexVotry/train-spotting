@@ -22,8 +22,10 @@ class RouteBox extends Component {
 
 
   render() {
+    const scroll = (this.props.validRoutes.length > 9) ? 'routeBoxes' : '';
+
     return (
-      <div>
+      <div className={`col-md-12 ${scroll}`}>
         {this.renderContent()}
       </div>
     )

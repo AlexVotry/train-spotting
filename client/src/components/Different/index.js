@@ -41,13 +41,18 @@ class Different extends Component {
         </div>
 
         <div className="row">
-          <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
+          <div className="col-md-4">
+            <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
+          </div>
 
+        <div className="col-md-8">
+          <div className="col-md-12">
+            <Answer showAnswer={this.state.showAnswer} answer={this.state.numberOfRoutes}/>
+          </div>
+
+          <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
+          </div>
         </div>
-        <Answer showAnswer={this.state.showAnswer} answer={this.state.numberOfRoutes}/>
-        
-        <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
-
       </div>
     )
   }
