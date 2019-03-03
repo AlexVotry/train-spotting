@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import shortest from '../../services/shortest';
-import fields from '../Form/fields';
-import Form from '../Form';
+import fields from '../TrainForm/fields';
+import TrainForm from '../TrainForm';
 import RouteBox from '../RouteBox';
 import Answer from '../Answer';
 
@@ -34,13 +34,13 @@ class Shortest extends Component {
 
     return (
       <div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' }} className='title-info'>
           <h1>Find the shortest distance.</h1>
           <p> Enter the start point, and the finish point, to what the shortest distance is.</p>
         </div>
 
         <div className="row">
-          <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} />
+          <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} />
 
           <Answer showAnswer={this.state.showAnswer} answer={this.state.answer}/>
 

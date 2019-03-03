@@ -4,10 +4,18 @@ import distance from './getDistance';
 
 
 test('when distance method recieves route responds with correct distance', () => {
-  expect(distance('A-B-C', DB)).toEqual(`The total distance is 9 miles`);
-  expect(distance('A-D', DB)).toEqual(`The total distance is 5 miles`);
-  expect(distance('A-D-C', DB)).toEqual(`The total distance is 13 miles`);
-  expect(distance('A-E-B-C-D', DB)).toEqual(`The total distance is 22 miles`);
-  expect(distance('A-E-D')).toEqual('NO SUCH ROUTE');
-  expect(distance('123')).toEqual('NO SUCH ROUTE');
+
+  const abd = distance('A-B-C', DB);
+  const ad = distance('ad', DB);
+  const adc = distance('a-d-c', DB);
+  const aebce = distance('AEBCd', DB);
+  const aed = distance('A-E-D', DB);
+  const _123 = distance('123', DB);
+
+  expect(abd.totalDistance).toEqual(9);
+  expect(ad.totalDistance).toEqual(5);
+  expect(adc.totalDistance).toEqual(13);
+  expect(aebce.totalDistance).toEqual(22);
+  expect(aed.totalDistance).toEqual('NO SUCH ROUTE');
+  expect(_123.totalDistance).toEqual('NO SUCH ROUTE');
 });
