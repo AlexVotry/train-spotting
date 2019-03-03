@@ -15,9 +15,22 @@ test('when sent value it adds to the form', () => {
       value: 'c',
     },
     {
-      name: 'stops',
-      label: 'Amount of Stops',
+      name: 'maxDist',
+      label: 'Maximum distance',
       value: 3,
     }
+  ]);
+
+  expect(inputs.stops(['a', 'c'])).toEqual([
+    {
+      name: 'start',
+      label: 'Starting Depot',
+      value: 'a',
+    },
+    {
+      name: 'end',
+      label: 'Ending Depot',
+      value: 'c',
+    }
   ])
-})
+});

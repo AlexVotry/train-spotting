@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Answer = (props) => {
-  console.log('props', props);
   if (props.showAnswer) {
     return (
       <div className="col s8 right">

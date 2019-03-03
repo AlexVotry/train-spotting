@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
+import { Card } from 'react-bootstrap';
+import _ from 'lodash';
+import './style.css';
 
 class RouteBox extends Component {
 
   renderContent() {
-    if (this.props.showAnswer) {
+    if (this.props.showAnswer && !_.isEmpty(this.props.validRoutes)) {
       return this.props.validRoutes.map(({route, distance}) => {
         return (
-          <div className="col s4" key={route}>
-            <div className="card blue-grey darken-1" >
-              <div className="card-content white-text">
-                <span className="card-title">Route: {route.toUpperCase()}</span>
-                <p>Distance: {distance} miles</p>
-              </div>
-            </div>
-          </div>
+          <Card className="card" key={route}>
+            <Card.Body>
+              <Card.Title>Route: {route.toUpperCase()}</Card.Title>
+              <Card.Text>Distance: {distance} miles</Card.Text>
+            </Card.Body>
+          </Card>
         );
       });
     }
   }
 
+
   render() {
     return (
-      <div className="col s8 right">
+      <div>
         {this.renderContent()}
       </div>
     )

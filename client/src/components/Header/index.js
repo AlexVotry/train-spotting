@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import './style.css';
+import { Navbar, Nav } from 'react-bootstrap';
 
 class Header extends Component {
 
@@ -11,30 +12,21 @@ class Header extends Component {
       {link: "different", display: "Different Routes"}
     ];
 
-    return links.map(({link, display}) => <li key={link}><Link to={link}>{display}</Link></li>);
+    return links.map(({link, display}) => <Nav.Link key={link} href={link}>{display}</Nav.Link>
+    );
   }
 
   render() {
     return (
-      <div>
-        <nav>
-          <div className="nav-wrapper teal lighten-2">
-            <Link to= {"/"}className="brand-logo hide-on-med-and-down" >
-              Train Info
-            </Link>
-            <Link to={"#"} data-target="mobile-demo" className="sidenav-trigger">
-              <i className="material-icons right">menu</i>
-            </Link>
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
-              {this.renderContent()}
-            </ul>
-          </div>
-        </nav>
-
-        <ul className="sidenav" id="mobile-demo">
-          {this.renderContent()}
-        </ul>
-      </div>
+      <Navbar collapseOnSelect expand="lg" className="navbar" variant="dark">
+        <Navbar.Brand href={"/"}>Train</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto">
+            {this.renderContent()}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     )
   }
 }

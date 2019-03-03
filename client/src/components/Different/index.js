@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import numOfRoutes from '../../services/numOfRoutes';
-import fields from '../Form/fields';
-import Form from '../Form';
+import fields from '../TrainForm/fields';
+import TrainForm from '../TrainForm';
 import RouteBox from '../RouteBox';
 import Answer from '../Answer';
 
@@ -35,18 +35,19 @@ class Different extends Component {
 
     return (
       <div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' }} className="title-info">
           <h1>Find how many different routes are available within a given distance.</h1>
           <p> Enter the start point, finish point, and the maximum distance to get how many possible routes are available.</p>
         </div>
 
         <div className="row">
-          <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
+          <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
 
-          <Answer showAnswer={this.state.showAnswer} answer={this.state.numberOfRoutes}/>
-
-          <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
         </div>
+        <Answer showAnswer={this.state.showAnswer} answer={this.state.numberOfRoutes}/>
+        
+        <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
+
       </div>
     )
   }

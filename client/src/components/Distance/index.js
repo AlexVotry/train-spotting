@@ -1,31 +1,44 @@
 import React, { Component } from 'react';
 import getDistance from '../../services/getDistance';
-import Form from '../Form';
+import TrainForm from '../TrainForm';
+import RouteBox from '../RouteBox';
 import Answer from '../Answer';
 
 class Distance extends Component {
-  state = { value: '', totalDistance: 0, showAnswer: false };
+  state = { value: '', totalDistance: 0, showAnswer: false, answer: '', validRoutes: '' };
 
   handleChange = input => {
     this.setState({ value: input.value, showAnswer: false });
   }
 
   handleSubmit = () => {
-    this.setState({ totalDistance: getDistance(this.state.value, this.props.db), showAnswer: true, value: '' });
+    const route = getDistance(this.state.value, this.props.db);
+    const answer = route.totalDistance === 'NO SUCH ROUTE' ? route.totalDistance : `The total distance for the route "${(this.state.value.toUpperCase())}" is ${route.totalDistance} miles.`
+    this.setState({
+      totalDistance: route.totalDistance,
+      validRoutes: route.validRoutes,
+      showAnswer: true,
+       value: '',
+       answer
+     });
   }
 
   render() {
     const formField = [{ label: 'Route', name: 'route', value: this.state.value }];
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h1>Route Distance Info</h1>
-        <h3>type in the route stops to find the total distance of the route: </h3>
+      <div>
+        <div  style={{ textAlign: 'center' }} className='title-info'>
+          <h1>Route Distance Info</h1>
+          <h3>Enter in the route stops to find the total distance of the route (ex: "A-B-C"): </h3>
+        </div>
 
         <div className="row">
-          <Form fields={formField} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
-
-          <Answer showAnswer={this.state.showAnswer} answer={this.state.totalDistance}/>
+          <TrainForm fields={formField} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
         </div>
+        <div className="row">
+          <Answer showAnswer={this.state.showAnswer} answer={this.state.answer}/>
+        </div>
+        <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
       </div>
     )
   }

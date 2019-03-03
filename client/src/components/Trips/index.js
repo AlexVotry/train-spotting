@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import numOfStops from '../../services/numOfStops';
-import fields from '../Form/fields';
-import Form from '../Form';
+import fields from '../TrainForm/fields';
+import TrainForm from '../TrainForm';
 import RouteBox from '../RouteBox';
 import Answer from '../Answer';
 
@@ -34,12 +34,14 @@ class Trips extends Component {
     const radioInfo = [{ name: 'max', label: 'Maximum amt' }, { name: 'exact', label: 'Exact amount' }]
 
     return (
-      <div className="row">
-        <div className="col s12" style={{ textAlign: 'center' }}>
+      <div>
+        <div style={{ textAlign: 'center' }} className='title-info'>
           <h1>Find the Number of trips available.</h1>
           <p> Enter the start point, finish point, and the number of stops to get how many possible routes there are.</p>
+        </div>
 
-          <Form fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} radio={radioInfo}/>
+        <div className="row">
+          <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} radio={radioInfo}/>
 
           <Answer showAnswer={this.state.showAnswer} answer={this.state.numOfStops}/>
 
