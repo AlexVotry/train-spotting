@@ -6,10 +6,12 @@ import './style.css';
 class RouteBox extends Component {
 
   renderContent() {
-    if (this.props.showAnswer && !_.isEmpty(this.props.validRoutes)) {
-      return this.props.validRoutes.map(({route, distance}) => {
+    const validRoutes = this.props.validRoutes;
+
+    if (this.props.showAnswer && !_.isEmpty(validRoutes)) {
+      return validRoutes.map(({route, distance}) => {
         return (
-          <Card className="card" key={route}>
+          <Card className="routeCard" key={route}>
             <Card.Body>
               <Card.Title>Route: {route.toUpperCase()}</Card.Title>
               <Card.Text>Distance: {distance} miles</Card.Text>
@@ -20,10 +22,17 @@ class RouteBox extends Component {
     }
   }
 
-
   render() {
+    let scroll = '';
+    let visible = '';
+
+    if (this.props.validRoutes) {
+      scroll = (this.props.validRoutes.length > 9) ? 'routeBoxes' : '';
+      visible = (this.props.showAnswer) ? 'visible': '';
+    }
+
     return (
-      <div>
+      <div className={`col-md-12 ${scroll} fade-in ${visible}`}>
         {this.renderContent()}
       </div>
     )

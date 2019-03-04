@@ -6,6 +6,7 @@ import Distance from '../Distance';
 import Shortest from '../Shortest';
 import Different from '../Different';
 import Trips from '../Trips';
+import Welcome from '../Welcome';
 
 class Landing extends Component {
 
@@ -14,6 +15,7 @@ class Landing extends Component {
       <BrowserRouter>
         <div>
           <Header />
+          <Route exact path="/" render={(props) => <Welcome db={this.props.train} /> } />
           <Route exact path="/distance" render={(props) => <Distance db={this.props.train} /> } />
           <Route exact path="/different" render={(props) => <Different db={this.props.train} /> } />
           <Route exact path="/shortest" render={(props) => <Shortest db={this.props.train} /> } />

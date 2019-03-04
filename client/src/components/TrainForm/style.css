@@ -1,7 +1,11 @@
 .form {
   padding: 20px !important;
-  border: 2px solid #4db6ac;
+  border: 5px solid #b69a4d;
   margin: 20px;
+  border-radius: 10%;
+  background-color: #b64d87;
+  color: #4db6ac;
+  font-weight: bold;
 }
 
 .btn {

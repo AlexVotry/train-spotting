@@ -26,7 +26,6 @@ class Radio extends Component {
             label={label}
             value={name}
             onChange={this.radioChange}
-            checked
             />
           </div>
       );

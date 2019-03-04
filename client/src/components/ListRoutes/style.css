@@ -1,16 +1,10 @@
-.routeCard {
+.routeList {
   display: inline-block;
-  background-color: #4db6ac;
+  background-color: #b64d87;
   margin: 10px;
-  color: #b64d87;
+  color: #4db6ac;
   z-index: 5;
   box-shadow: 10px 10px 20px #000;
-}
-
-.routeBoxes {
-    height: 30rem;
-    overflow-y: scroll;
-    transition: transform 300ms ease-in-out;
 }
 
 .fade-in {

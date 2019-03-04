@@ -19,7 +19,7 @@ class Header extends Component {
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" className="navbar" variant="dark">
-        <Navbar.Brand href={"/"}>Train</Navbar.Brand>
+        <Navbar.Brand href={"/"}>Route List</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
