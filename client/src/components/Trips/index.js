@@ -17,8 +17,9 @@ class Trips extends Component {
     const result = numOfStops[this.state.amt](this.state.start,
       this.state.end, this.state.stops, this.props.db);
     const trips = result.count === 1 ? 'trip' : 'trips';
+    console.log('result:',result);
     const stops = this.state.stops === 1 ? 'stop' : 'stops';
-    const answer = `There are ${result.count} ${trips} available with ${this.state.stops} ${stops} that start at "${this.state.start.toUpperCase()}" and end at "${this.state.end.toUpperCase()}".`;
+    const answer = result.count === 'NO SUCH ROUTE' ? result.count : `There are ${result.count} ${trips} available with ${this.state.stops} ${stops} that start at "${this.state.start.toUpperCase()}" and end at "${this.state.end.toUpperCase()}".`;
 
     this.setState(
 
@@ -42,17 +43,19 @@ class Trips extends Component {
           <p> Enter the start point, finish point, and the number of stops to get how many possible routes there are.</p>
         </div>
 
-        <div className="row">
-          <div className="col-md-4">
-            <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} radio={radioInfo}/>
-          </div>
-          
-          <div className="col-md-8">
-            <div className="col-md-12">
-              <Answer showAnswer={this.state.showAnswer} answer={this.state.numOfStops}/>
+        <div className="bgTrain">
+          <div className="row bgTrain-inside">
+            <div className="col-md-4">
+              <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} radio={radioInfo}/>
             </div>
 
-            <RouteBox validRoutes={this.state.routes} showAnswer={this.state.showAnswer}/>
+            <div className="col-md-8">
+              <div className="col-md-12">
+                <Answer showAnswer={this.state.showAnswer} answer={this.state.numOfStops}/>
+              </div>
+
+              <RouteBox validRoutes={this.state.routes} showAnswer={this.state.showAnswer}/>
+            </div>
           </div>
         </div>
       </div>

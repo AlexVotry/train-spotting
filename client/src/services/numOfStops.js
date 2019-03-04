@@ -2,10 +2,12 @@ import _ from 'lodash';
 import shortest from './shortest';
 
 function max(start, end, stops, routes) {
+  if (isNaN(stops)) return { count: 'NO SUCH ROUTE' };
   let count = 0;
   let validRoutes = [];
   for (let i = 1; i <= stops; i++) {
     let exactResults = exact(start, end, i, routes);
+    if (isNaN(exactResults.count)) return { count: exactResults.count };
     count += exactResults.count;
     if(!_.isEmpty(exactResults.routes)) {
       for (let i = 0; i < exactResults.routes.length; i++) {
@@ -20,8 +22,9 @@ function max(start, end, stops, routes) {
 
 function exact(s, e, stops, routes) {
   let validRoutes = [];
-  let start = s.toLowerCase();
-  let end = e.toLowerCase();
+  let start = s.toLowerCase().match(/[a-d]/) ? s.toLowerCase() : null;
+  let end = e.toLowerCase().match(/[b-e]/) ? e.toLowerCase() : null;
+  if (!start || !end || isNaN(stops)) return { count: 'NO SUCH ROUTE' };
   let counter = 1;
   let count = 0;
   // TODO: move lines to 34 into _getNextTrip()

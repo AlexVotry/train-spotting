@@ -3,8 +3,9 @@ import _ from 'lodash';
 function dist(s, e, routes) {
   let starts = {};
   let ends = {};
-  let start = s.toLowerCase();
-  let end = e.toLowerCase();
+  let start = s.toLowerCase().match(/[a-d]/) ? s.toLowerCase() : null;
+  let end = e.toLowerCase().match(/[b-e]/) ? e.toLowerCase() : null;
+  if (!start || !end) return { distance: 'NO SUCH ROUTE' };
   let result = {};
   let startEnd = getStart_End(start, end, routes);
   starts = startEnd.start;

@@ -32,17 +32,19 @@ class Distance extends Component {
           <h3>Enter in the route stops to find the total distance of the route (ex: "A-B-C"): </h3>
         </div>
 
-        <div className="row">
-          <div className="col-md-4">
-            <TrainForm fields={formField} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
-          </div>
-
-          <div className="col-md-8">
-            <div className="col-md-12">
-              <Answer showAnswer={this.state.showAnswer} answer={this.state.answer}/>
+        <div className="bgTrain">
+          <div className="row bgTrain-inside">
+            <div className="col-md-4">
+              <TrainForm fields={formField} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
             </div>
 
-            <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
+            <div className="col-md-8">
+              <div className="col-md-12">
+                <Answer showAnswer={this.state.showAnswer} answer={this.state.answer}/>
+              </div>
+
+              <RouteBox validRoutes={this.state.validRoutes} showAnswer={this.state.showAnswer}/>
+            </div>
           </div>
         </div>
       </div>

@@ -1,10 +1,22 @@
-.card {
+.routeCard {
   display: inline-block;
   background-color: #4db6ac;
   margin: 10px;
+  color: b64d87;
+  z-index: 5;
+  box-shadow: 10px 10px 20px #000;
 }
 
 .routeBoxes {
     height: 30rem;
     overflow-y: scroll;
+    transition: transform 300ms ease-in-out;
+}
+
+.fade-in {
+  opacity: 0;
+}
+.fade-in.visible {
+  transition: opacity .5s ease-in;
+  opacity: 1;
 }

@@ -13,10 +13,10 @@ class Shortest extends Component {
   }
 
   handleSubmit = () => {
-    const start = this.state.start.toUpperCase();
-    const end = this.state.end.toUpperCase();
+    const start = this.state.start;
+    const end = this.state.end;
     const result = shortest.dist(start, end, this.props.db);
-    const answer = `The shortest distance from "${start}" to "${end}" is ${result.distance} miles`;
+    const answer = (result.distance === 'NO SUCH ROUTE') ? result.distance : `The shortest distance from "${start.toUpperCase()}" to "${end.toUpperCase()}" is ${result.distance} miles`;
 
     this.setState(
       { answer: answer,
@@ -30,7 +30,7 @@ class Shortest extends Component {
 
   render() {
     const formFields = fields.stops([this.state.start, this.state.end])
-    const validRoute = [{route: this.state.route, distance: this.state.distance }]
+    const validRoute = (this.state.route) ? [{route: this.state.route, distance: this.state.distance }] : [];
 
     return (
       <div>
@@ -39,15 +39,17 @@ class Shortest extends Component {
           <p> Enter the start point, and the finish point, to what the shortest distance is.</p>
         </div>
 
-        <div className="row">
-          <div className="col-md-4">
-            <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} />
-          </div>
-          <div className="col-md-8">
-            <div className="col-md-12">
-              <Answer showAnswer={this.state.showAnswer} answer={this.state.answer}/>
+        <div className="bgTrain">
+          <div className="row bgTrain-inside">
+            <div className="col-md-4">
+              <TrainForm fields={formFields} onSubmit={this.handleSubmit} onChange={this.handleChange} />
             </div>
-            <RouteBox validRoutes={validRoute} showAnswer={this.state.showAnswer}/>
+            <div className="col-md-8">
+              <div className="col-md-12">
+                <Answer showAnswer={this.state.showAnswer} answer={this.state.answer}/>
+              </div>
+              <RouteBox validRoutes={validRoute} showAnswer={this.state.showAnswer}/>
+            </div>
           </div>
         </div>
       </div>
