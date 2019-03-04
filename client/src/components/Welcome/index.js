@@ -16,7 +16,7 @@ const Welcome = (props) => {
         </ul>
       </div>
 
-    <ListRoutes db={props.db}/>
+      <ListRoutes db={props.db}/>
 
     </div>
   )

@@ -22,14 +22,14 @@ class Trips extends Component {
     const answer = result.count === 'NO SUCH ROUTE' ? result.count : `There are ${result.count} ${trips} available with ${this.state.stops} ${stops} that start at "${this.state.start.toUpperCase()}" and end at "${this.state.end.toUpperCase()}".`;
 
     this.setState(
-
       { numOfStops: answer,
         routes: result.routes,
         showAnswer: true,
         start: '',
         end: '',
         stops: ''
-      });
+      }
+    );
   }
 
   render() {

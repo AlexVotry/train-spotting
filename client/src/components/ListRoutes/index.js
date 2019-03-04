@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import './style.css';
 import _ from 'lodash';
+import './style.css';
 
 const ListRoutes = (props) => {
   let index = 0;

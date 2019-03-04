@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Radio from './Radio';
+import { Form, Button } from 'react-bootstrap';
 import _ from 'lodash';
 import './style.css';
-import { Form, Button } from 'react-bootstrap';
 
 class TrainForm extends Component {
   state = {
@@ -77,7 +77,6 @@ class TrainForm extends Component {
           Submit
         </Button>
       </Form>
-
     )
   }
 }

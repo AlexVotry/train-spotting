@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { Form } from 'react-bootstrap';
+import _ from 'lodash';
 
 class Radio extends Component {
   state = { name: 'amt', value: 'max'};
@@ -26,12 +26,11 @@ class Radio extends Component {
             label={label}
             value={name}
             onChange={this.radioChange}
-            />
-          </div>
+          />
+        </div>
       );
     })
   }
 }
-
 
 export default Radio;
