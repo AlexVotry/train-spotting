@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ListRoutes from '../ListRoutes';
 
 const Welcome = (props) => {
-
   return (
     <div>
       <div className='title-info'>
@@ -15,6 +15,9 @@ const Welcome = (props) => {
           <li>Finally, if you want to see how many different routes available based on miles, click <Link to="/different">"Different Routes"</Link> tab.</li>
         </ul>
       </div>
+
+    <ListRoutes db={props.db}/>
+
     </div>
   )
 }
