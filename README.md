@@ -1,21 +1,35 @@
-react node app to play with algorithms
+![stack](MERNstack.png)
 
-clone repo.
+This app is to use algorithms to access a database and get various data. I wrote the algorithms first and tested them, then wrote the server and database, then wrote the React components.
+I am using mLab to hold the mongodb to minimize set up efforts.
 
-cd to project and npm install
+### To get it locally on your machine from the terminal:
 
-cd client
+1. Clone repo to a folder of your choice:
+  `git clone git@github.com:AlexVotry/train-spotting.git`
 
-npm install
+2. Go to project:
+  `cd train-spotting`
 
-add a dev.js file to the config folder in root folder.
+3. Install packages
+  `npm install`
 
-I will share my file info on google drive. Copy and paste into dev.js
+4. Move into client folder:
+  `cd client`
 
-to run program cd to root folder handleChange
+5. install react packages:
+  `npm install`
 
-npm run dev.
+6. Move back to root folder:
+  `cd ..`
 
-This will start up server and client react and open a window in your browser (localhost:3000).
+7. Add a **dev.js** file to the *config* folder (you will find it in the rooot folder).
 
-I am using mLab to hold the mongodb.
+8. I will share my file info on google drive. Copy and paste into **dev.js**
+
+9. To run program (from the root folder *train-spotting*):
+  `npm run dev`
+
+  This will start up server and client react and open a window in your browser (localhost:3000).
+
+![screenshot](trainSpottingScreenshot.png)
