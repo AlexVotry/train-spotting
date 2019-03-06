@@ -17,13 +17,13 @@ I am using mLab to hold the mongodb to minimize set up efforts.
 4. Move into client folder:
   `cd client`
 
-5. install react packages:
+5. Install react packages:
   `npm install`
 
 6. Move back to root folder:
   `cd ..`
 
-7. Add a **dev.js** file to the *config* folder (you will find it in the rooot folder).
+7. Add a **dev.js** file to the *config* folder (you will find it in the root folder).
 
 8. I will share my file info on google drive. Copy and paste into **dev.js**
 
