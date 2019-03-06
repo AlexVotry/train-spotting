@@ -1,6 +1,13 @@
 import { combineReducers } from 'redux';
-import routes from './trains';
+
+const trainReducer = (state = [], action) => {
+  if (action.type === 'FETCH_TRAINS') {
+      return action.payload;
+  } else {
+    return state;
+  }
+}
 
 export default combineReducers({
-  train: routes
+  train: trainReducer
 });

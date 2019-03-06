@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import shortest from '../../services/shortest';
 import fields from '../TrainForm/fields';
 import TrainForm from '../TrainForm';
@@ -15,7 +16,7 @@ class Shortest extends Component {
   handleSubmit = () => {
     const start = this.state.start;
     const end = this.state.end;
-    const result = shortest.dist(start, end, this.props.db);
+    const result = shortest.dist(start, end, this.props.train);
     const answer = (result.distance === 'NO SUCH ROUTE') ? result.distance : `The shortest distance from "${start.toUpperCase()}" to "${end.toUpperCase()}" is ${result.distance} miles`;
 
     this.setState(
@@ -57,4 +58,8 @@ class Shortest extends Component {
   }
 }
 
-export default Shortest;
+function mapStateToProps({ train }) {
+  return { train };
+}
+
+export default connect(mapStateToProps)(Shortest);

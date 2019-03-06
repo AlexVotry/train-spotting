@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import numOfStops from '../../services/numOfStops';
 import fields from '../TrainForm/fields';
 import TrainForm from '../TrainForm';
@@ -15,7 +16,7 @@ class Trips extends Component {
 
   handleSubmit = () => {
     const result = numOfStops[this.state.amt](this.state.start,
-      this.state.end, this.state.stops, this.props.db);
+      this.state.end, this.state.stops, this.props.train);
     const trips = result.count === 1 ? 'trip' : 'trips';
     console.log('result:',result);
     const stops = this.state.stops === 1 ? 'stop' : 'stops';
@@ -63,4 +64,8 @@ class Trips extends Component {
   }
 }
 
-export default Trips;
+function mapStateToProps({ train }) {
+  return { train };
+}
+
+export default connect(mapStateToProps)(Trips);

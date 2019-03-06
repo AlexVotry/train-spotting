@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ListRoutes from '../ListRoutes';
 
-const Welcome = (props) => {
+const Welcome = () => {
   return (
     <div>
       <div className='title-info'>
@@ -16,7 +16,7 @@ const Welcome = (props) => {
         </ul>
       </div>
 
-      <ListRoutes db={props.db}/>
+      <ListRoutes />
 
     </div>
   )

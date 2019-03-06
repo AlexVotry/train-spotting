@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import numOfRoutes from '../../services/numOfRoutes';
 import fields from '../TrainForm/fields';
 import TrainForm from '../TrainForm';
@@ -16,7 +17,7 @@ class Different extends Component {
     let start = this.state.start;
     let end = this.state.end;
     let maxDist = this.state.maxDist;
-    const result = numOfRoutes(start, end, maxDist, this.props.db);
+    const result = numOfRoutes(start, end, maxDist, this.props.train);
     start = this.state.start.toUpperCase().match(/[A-D]/) ? this.state.start.toUpperCase() : null;
     end = this.state.end.toUpperCase().match(/[B-E]/) ? this.state.end.toUpperCase() : null;
     maxDist = (!isNaN(this.state.maxDist)) ? this.state.maxDist : null;
@@ -69,4 +70,8 @@ class Different extends Component {
 
 }
 
-export default Different;
+function mapStateToProps({ train }) {
+  return { train };
+}
+
+export default connect(mapStateToProps)(Different);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import getDistance from '../../services/getDistance';
 import TrainForm from '../TrainForm';
 import RouteBox from '../RouteBox';
@@ -12,7 +13,7 @@ class Distance extends Component {
   }
 
   handleSubmit = () => {
-    const route = getDistance(this.state.value, this.props.db);
+    const route = getDistance(this.state.value, this.props.train);
     const answer = route.totalDistance === 'NO SUCH ROUTE' ? route.totalDistance : `The total distance for the route "${(this.state.value.toUpperCase())}" is ${route.totalDistance} miles.`
     this.setState({
       totalDistance: route.totalDistance,
@@ -52,4 +53,8 @@ class Distance extends Component {
   }
 }
 
-export default Distance;
+function mapStateToProps({ train }) {
+  return { train };
+}
+
+export default connect(mapStateToProps)(Distance);

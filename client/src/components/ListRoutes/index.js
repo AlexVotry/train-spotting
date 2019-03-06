@@ -1,11 +1,12 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import './style.css';
 
-const ListRoutes = (props) => {
+const ListRoutes = ({train}) => {
   let index = 0;
-  return _.map(props.db, ({ _id, start, end, distance }) => {
+  return _.map(train, ({ _id, start, end, distance }) => {
     index++;
     return (
       <Card className="routeList" key={_id}>
@@ -20,4 +21,8 @@ const ListRoutes = (props) => {
   })
 }
 
-export default ListRoutes;
+function mapStateToProps({ train }) {
+  return { train };
+}
+
+export default connect(mapStateToProps)(ListRoutes);
